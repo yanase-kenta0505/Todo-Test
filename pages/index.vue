@@ -9,6 +9,10 @@ const addItem = () => {
   todos.value.push(taskName.value);
   taskName.value = "";
 };
+
+let toggleNum = ref<string>('left');
+
+
 </script>
 
 <template>
@@ -40,13 +44,20 @@ const addItem = () => {
 
     <v-card class="mx-auto mt-10" width="600px" tile>
       <v-list dense flat class="mb-0">
-        <v-subheader class="mb-3 d-flex justify-space-between ">
+        <v-subheader class="mb-3 d-flex justify-space-between">
           <span class="text-h6 blue--text"> 1 Items Left </span>
           <div class="">
-            <v-btn-toggle tile color="blue align-self-center" group>
-              <v-btn  value="left"> All </v-btn>
-              <v-btn  value="center"> Active </v-btn>
-              <v-btn  value="right"> Completed </v-btn>
+            <v-btn-toggle
+              tile
+              color="blue align-self-center"
+              group
+              v-model="toggleNum"
+              mandatory
+             
+            >
+              <v-btn value="left"> All </v-btn>
+              <v-btn value="center"> Active </v-btn>
+              <v-btn value="right"> Completed </v-btn>
             </v-btn-toggle>
           </div>
         </v-subheader>
@@ -59,14 +70,14 @@ const addItem = () => {
             <v-list-item-content>
               <v-list-item-title class="text-h5">vue.js</v-list-item-title>
             </v-list-item-content>
-            <v-list-icon>
+            <v-list-item-icon>
               <v-btn icon class="mr-5">
                 <v-icon class="mx-auto">mdi-pencil</v-icon>
               </v-btn>
               <v-btn icon>
                 <v-icon class="mx-auto">mdi-delete</v-icon>
               </v-btn>
-            </v-list-icon>
+            </v-list-item-icon>
           </v-list-item>
           <v-divider />
         </v-list-item-group>
