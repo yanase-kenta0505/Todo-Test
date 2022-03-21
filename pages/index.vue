@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { ref } from "@nuxtjs/composition-api";
+import { Ref, ref } from "@nuxtjs/composition-api";
+import AddTaskField from "~/components/addTaskField.vue";
 
-const todos = ref<string[]>([]);
+const todos = ref<Ref<string>[]>([]);
 
-let taskName = ref<string>("");
-
-const addItem = () => {
-  todos.value.push(taskName.value);
-  taskName.value = "";
+const addTodo = (newTaskName: Ref<string>): void => {
+  console.log(newTaskName);
+  
+  todos.value.push(newTaskName)
 };
 
-let toggleNum = ref<string>('left');
-
-
+let toggleNum = ref<string>("left");
 </script>
 
 <template>
@@ -26,21 +24,7 @@ let toggleNum = ref<string>('left');
       <p class="text-h3 text-center ma-0">TODO LIST</p>
     </v-card>
 
-    <v-card width="600px" class="mx-auto mt-10" tile>
-      <v-text-field
-        @keydown.enter="addTodo"
-        autofocus
-        autocomplete="off"
-        clearable
-        color="primary"
-        hide-details="auto"
-        maxlength="20"
-        placeholder="What needs to be done?"
-        solo
-        flat
-        height="70px"
-      ></v-text-field>
-    </v-card>
+    <AddTaskField @add-todo="addTodo" />
 
     <v-card class="mx-auto mt-10" width="600px" tile>
       <v-list dense flat class="mb-0">
@@ -53,7 +37,6 @@ let toggleNum = ref<string>('left');
               group
               v-model="toggleNum"
               mandatory
-             
             >
               <v-btn value="left"> All </v-btn>
               <v-btn value="center"> Active </v-btn>
@@ -68,7 +51,9 @@ let toggleNum = ref<string>('left');
               <v-checkbox></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title class="text-h5">vue.js</v-list-item-title>
+              <v-list-item-title class="text-h5" v-for="todo in todos">
+                {{ todo }}
+              </v-list-item-title>
             </v-list-item-content>
             <v-list-item-icon>
               <v-btn icon class="mr-5">
@@ -89,6 +74,10 @@ let toggleNum = ref<string>('left');
 <style scoped>
 p {
   line-height: 50px;
+}
+
+::v-deep .v-application--wrap {
+  min-height: initial;
 }
 .v-input {
   flex: initial;
