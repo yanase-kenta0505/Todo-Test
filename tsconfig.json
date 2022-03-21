@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "target": "ES2018",
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -34,6 +35,9 @@
       "compatConfig": { "MODE": 2 } // optional
     }
   },
+ 
+    
+
   "exclude": [
     "node_modules",
     ".nuxt",
