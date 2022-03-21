@@ -2,12 +2,10 @@
 import { Ref, ref } from "@nuxtjs/composition-api";
 import AddTaskField from "~/components/addTaskField.vue";
 
-const todos = ref<Ref<string>[]>([]);
+const todos = ref<string[]>([]);
 
 const addTodo = (newTaskName: Ref<string>): void => {
-  console.log(newTaskName);
-  
-  todos.value.push(newTaskName)
+  todos.value.push(newTaskName.value);
 };
 
 let toggleNum = ref<string>("left");
@@ -45,13 +43,13 @@ let toggleNum = ref<string>("left");
           </div>
         </v-subheader>
         <v-divider />
-        <v-list-item-group>
+        <v-list-item-group v-for="todo in todos">
           <v-list-item class="pt-3 pb-3">
             <v-list-item-action>
               <v-checkbox></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title class="text-h5" v-for="todo in todos">
+              <v-list-item-title class="text-h5">
                 {{ todo }}
               </v-list-item-title>
             </v-list-item-content>
